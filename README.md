@@ -6,6 +6,7 @@ procedure:
 * extract read names and sort
 * compare read names and find common read names using linux 'comm' utility
 * extract reads from mapped1.bam using common read names and return common_mapped1.bam
+* extract reads from mapped2.bam using common read names and return common_mapped2.bam
 
 usage example:
 ```
