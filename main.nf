@@ -30,6 +30,8 @@ process extract_mapped {
 }
 
 process printpassed {
+    container '829680141244.dkr.ecr.us-west-1.amazonaws.com/artemys-biocontainers/sarekbase'
+    
     input:
       path inputfile
 
