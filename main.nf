@@ -10,6 +10,8 @@ nextflow.enable.dsl=2
 
 params.bam1 = ''
 params.bam2 = ''
+params.tag1 = ''
+params.tag2 = ''
 params.outdir = 'results'
 
 process extract_mapped {
@@ -18,14 +20,15 @@ process extract_mapped {
     
     input:
       path bamfile
+      val tag
 
     output:
-      path "${bamfile.baseName}_mapped.bam"
+      path "${bamfile.baseName}_${tag}_mapped.bam"
 
     script:
       println "processing bamfile: " + bamfile
       """
-      samtools view -b -F4 $bamfile > "${bamfile.baseName}_mapped.bam"
+      samtools view -b -F4 $bamfile > "${bamfile.baseName}_${tag}_mapped.bam"
       """
 }
 
@@ -70,8 +73,10 @@ process compare_bams {
 
 workflow {
     bamfiles = channel.fromList([params.bam1, params.bam2])
-    println "bamfiles: " + bamfiles
-    extract_mapped(bamfiles)
+    tags = channel.fromList([params.tag1, params.tag2])    
+//    println "bamfiles: " + bamfiles
+//    println "tags: " + tags
+    extract_mapped(bamfiles, tags)
     extract_mapped.out.view{ it }
     printpassed(extract_mapped.out.collect())
     compare_bams(extract_mapped.out.collect())

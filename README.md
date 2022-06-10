@@ -13,3 +13,9 @@ usage example:
 nextflow run nf-commonreads/main.nf -with-docker [nextflow-image] --bam1 [path or s3 folder uri] --bam2 [path or s3 folder uri] --outdir [path to folder or s3 folder uri]
 ```
 
+If the input bam filenames are not unique, then specify tags like this:
+
+```
+nextflow run nf-commonreads/main.nf -with-docker [nextflow-image] --bam1 [path or s3 folder uri] --tag1 [unique tag] --bam2 [path or s3 folder uri] --tag2 [unique tag] --outdir [path to folder or s3 folder uri]
+```
+
